@@ -1,22 +1,36 @@
 pipeline {
-   agent any
-   stages{
-    stage('clone'){
-        steps{
-            sh 'echo "clone"'
-           sh 'uname -r'
-            sh 'nproc'
+    agent any
+    stages{
+        stage('CodeScan'){
+            sh 'trivy --version'
         }
+        stage('dockerImageBuild'){
+            steps{
+                sh 'docker -v'
+
+            }
+        }
+        stage(dockePush){
+            steps{
+                sh 'docker ps'
+            }
+        }
+
+        stage('clone'){
+            steps{
+                sh 'echo "clone"'
+            }
+            stage('test'){
+                steps{
+                    sh 'echo "test"'
+                }
+            }
+            stages('createfile'){
+                steps{
+                    sh 'touch test-$BUILD_ID'
+                }
+            }
+        }
+
     }
-    stage('test'){
-        steps{
-            sh 'echo "test"'
-        }
-}
-    stage('ceatefile'){
-        steps{
-            sh 'touch text-$BUILD_ID'
-        }
-    }
-   } 
 }
