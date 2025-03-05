@@ -1,5 +1,9 @@
 pipeline {
    agent any
+environment{
+AWS_REGION = 'us-est-1'
+ECR_REPO = '971422713140.dkr.ecr.us-east-1.amazonaws.com'  
+}
    stages{
     stage('CodeScan'){
         steps{
