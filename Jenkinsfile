@@ -2,7 +2,7 @@ pipeline {
     agent any
     stages{
         stage('CodeScan'){
-            sh 'trivy --version'
+            sh 'trivy fs . -o result.html'
         }
         stage('dockerImageBuild'){
             steps{
